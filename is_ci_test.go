@@ -54,8 +54,9 @@ func TestIsCI(t *testing.T) {
 	}
 
 	for _, c := range cc {
+		os.Clearenv()
 		t.Run(fmt.Sprintf("Checking %s", c.provider), func(t *testing.T) {
-			if c.provider != "" {
+			if c.provider != "" && c.provider != "CI" {
 				env(t, "CI", "1")
 				env(t, c.provider, "1")
 			} else {
