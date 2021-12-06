@@ -1,6 +1,7 @@
 package isci
 
 import (
+	"fmt"
 	"os"
 	"testing"
 )
@@ -53,10 +54,13 @@ func TestIsCI(t *testing.T) {
 	}
 
 	for _, c := range cc {
-		t.Run(c.provider, func(t *testing.T) {
+		t.Run(fmt.Sprintf("Checking %s", c.provider), func(t *testing.T) {
 			if c.provider != "" {
 				env(t, "CI", "1")
 				env(t, c.provider, "1")
+			} else {
+				env(t, "CI", "")
+				env(t, c.provider, "")
 			}
 
 			res := Check()
